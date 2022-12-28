@@ -10,6 +10,21 @@
 
     <!--int updateUser();-->
     <update id="updateUser">
-        update t_user set username = '张三' where id = 4
+        update t_user set username = 'zhangsan' where id = 4
     </update>
+
+    <!--int deleteUser();-->
+    <delete id="deleteUser">
+        delete from t_user where id = 5
+    </delete>
+
+    <!--User queryUserById();-->
+    <select id="queryUserById" resultType="User">
+        select * from t_user where id = 3
+    </select>
+
+    <!--List<User> queryAllUser();-->
+    <select id="queryAllUser" resultType="User">
+        select * from t_user
+    </select>
 </mapper>
