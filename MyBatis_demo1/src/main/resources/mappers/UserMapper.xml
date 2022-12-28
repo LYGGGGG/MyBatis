@@ -7,4 +7,9 @@
     <insert id="insertUser">
 		insert into t_user values(null,'admin','123456',23,'男','12345@qq.com')
 	</insert>
+
+    <!--int updateUser();-->
+    <update id="updateUser">
+        update t_user set username = '张三' where id = 4
+    </update>
 </mapper>
