@@ -6,6 +6,7 @@ package com.atguigu.mybatis.test;
 */
 
 import com.atguigu.mybatis.mapper.UserMapper;
+import com.atguigu.mybatis.pojo.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -14,6 +15,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 public class MyBatisTest {
 
@@ -34,5 +36,22 @@ public class MyBatisTest {
         int i = mapper.insertUser();
 //        sqlSession.commit();
         System.out.println("result: " + i);
+    }
+
+    @Test
+    public void testCRUD() throws IOException {
+        InputStream is = Resources.getResourceAsStream("mybatis-config.xml");
+        SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(is);
+        SqlSession sqlSession = sessionFactory.openSession(true);
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+//        int i = mapper.updateUser();
+//        int i = mapper.deleteUser();
+//        System.out.println("result: " + i);
+
+//        User user = mapper.queryUserById();
+//        System.out.println(user);
+
+        List<User> users = mapper.queryAllUser();
+        users.forEach(a -> System.out.println(a));
     }
 }
