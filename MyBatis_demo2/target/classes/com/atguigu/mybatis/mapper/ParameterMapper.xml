@@ -30,7 +30,9 @@
     </select>
 
     <!--   User checkLoginByParam(@Param("username") String username,@Param("password") String password);
-    -->
+        使用@Param注解命名参数，此时，mybatis会将这些参数放在map集合中
+        以@Param注解的value属性值为键，以参数为值；
+        以param1,param2…为键，以参数为值；    -->
     <select id="checkLoginByParam" resultType="User">
         select * from t_user where username = #{username} and password = #{password}
     </select>
