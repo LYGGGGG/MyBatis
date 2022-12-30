@@ -5,6 +5,7 @@ package com.atguigu.mybatis.mapper;
 @create 2022/12/29   21:40
 */
 
+import com.atguigu.mybatis.pojo.Dept;
 import com.atguigu.mybatis.pojo.Emp;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,5 +28,9 @@ public interface EmpMapper {
      */
     Emp getEmpAndDeptByStep1(@Param("eid")Integer eid);
 
-
+    /**
+     * 通过分步查询，查询部门以及部门中所有的员工信息
+     * 第二步：根据did查询员工信息
+     */
+    List<Emp> getDeptAndEmpByStep2(@Param("did") Integer did);
 }
