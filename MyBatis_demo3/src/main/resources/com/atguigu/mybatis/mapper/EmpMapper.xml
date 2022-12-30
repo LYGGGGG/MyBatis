@@ -3,5 +3,80 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.atguigu.mybatis.mapper.EmpMapper">
+    <!--
+    resultMap:设置自定义映射关系
+    id:唯一标识，不能重复
+    type:设置映射关系中的实体类类型
+    子标签：
+    id设置主键，result设置其他字段
+    property：属性名；column：字段名
+    -->
+    <resultMap id="empResultMap" type="Emp">
+        <id property="eid" column="eid"/>
+        <result property="empName" column="emp_name"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+        <result property="email" column="email"/>
+    </resultMap>
 
+
+    <!--    List<Emp> getAllEmp();-->
+    <select id="getAllEmp" resultMap="empResultMap">
+        select * from t_emp
+    </select>
+
+    <select id="getAllEmpOld" resultType="Emp">
+        <!--select eid,emp_name empName,age,sex,email from t_emp-->
+        select * from t_emp
+    </select>
+
+    <!--                                         -->
+    <!--级联属性赋值-->
+    <resultMap id="empAndDeptResultMap1" type="Emp">
+        <id property="eid" column="eid"/>
+        <result property="empName" column="emp_name"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+        <result property="email" column="email"/>
+        <result property="dept.did" column="did"/>
+        <result property="dept.deptName" column="dept_name"/>
+    </resultMap>
+
+    <!--association-->
+    <resultMap id="empAndDeptResultMap2" type="Emp">
+        <id property="eid" column="eid"/>
+        <result property="empName" column="emp_name"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+        <result property="email" column="email"/>
+        <association property="dept" javaType="Dept">
+            <id property="did" column="did"/>
+            <result property="deptName" column="dept_name"/>
+        </association>
+    </resultMap>
+    <select id="getEmpAndDept" resultMap="empAndDeptResultMap2">
+        select * from t_emp left join t_dept on t_emp.did = t_dept.did where t_emp.eid = #{eid}
+    </select>
+
+    <!--                                         -->
+    <!--分步查询-->
+
+    <resultMap id="empAndDeptByStepResultMap1" type="Emp">
+        <id property="eid" column="eid"/>
+        <result property="empName" column="emp_name"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+        <result property="email" column="email"/>
+        <!--
+        select:设置分步查询的sql的唯一标识（namespace.SQLId或mapper接口的全类名.方法名）
+        column:设置分步查询的条件
+        -->
+        <association property="dept"
+        select="com.atguigu.mybatis.mapper.DeptMapper.getEmpAndDeptByStep2"
+        column="did"></association>
+    </resultMap>
+
+    <select id="getEmpAndDeptByStep1" resultMap="empAndDeptByStepResultMap1">
+        select * from t_emp where eid = #{eid}
+    </select>
 </mapper>
