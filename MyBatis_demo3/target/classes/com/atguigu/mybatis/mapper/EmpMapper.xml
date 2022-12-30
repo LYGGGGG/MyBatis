@@ -31,7 +31,7 @@
     </select>
 
     <!--                                         -->
-
+    <!--级联属性赋值-->
     <resultMap id="empAndDeptResultMap1" type="Emp">
         <id property="eid" column="eid"/>
         <result property="empName" column="emp_name"/>
@@ -42,6 +42,7 @@
         <result property="dept.deptName" column="dept_name"/>
     </resultMap>
 
+    <!--association-->
     <resultMap id="empAndDeptResultMap2" type="Emp">
         <id property="eid" column="eid"/>
         <result property="empName" column="emp_name"/>
@@ -71,11 +72,14 @@
         column:设置分步查询的条件
         -->
         <association property="dept"
-        select="com.atguigu.mybatis.mapper.DeptMapper.getEmpAndDeptByStep2"
-        column="did"></association>
+                     select="com.atguigu.mybatis.mapper.DeptMapper.getEmpAndDeptByStep2"
+                     column="did"></association>
     </resultMap>
 
     <select id="getEmpAndDeptByStep1" resultMap="empAndDeptByStepResultMap1">
         select * from t_emp where eid = #{eid}
+    </select>
+    <select id="getDeptAndEmpByStep2" resultType="Emp">
+        select * from t_emp where did = #{did}
     </select>
 </mapper>

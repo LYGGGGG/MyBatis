@@ -7,7 +7,10 @@
 
     <!--设置mybatis的全局配置-->
     <settings>
+        <!--自动映射为驼峰-->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false"/>
     </settings>
     
     <typeAliases>
