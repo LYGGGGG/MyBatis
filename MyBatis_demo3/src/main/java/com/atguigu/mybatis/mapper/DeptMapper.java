@@ -5,5 +5,14 @@ package com.atguigu.mybatis.mapper;
 @create 2022/12/29   21:40
 */
 
+import com.atguigu.mybatis.pojo.Dept;
+import org.apache.ibatis.annotations.Param;
+
 public interface DeptMapper {
+
+    /**
+     * 通过分步查询，查询员工以及员工所对应的部门信息
+     * 第二步：通过did查询员工所对应的部门
+     */
+    Dept getEmpAndDeptByStep2(@Param("did") Integer did);
 }
